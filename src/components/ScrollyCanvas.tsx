@@ -28,9 +28,9 @@ export default function ScrollyCanvas({ targetRef }: ScrollyCanvasProps) {
   });
 
   const easedProgress = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 24,
-    mass: 0.25,
+    stiffness: 100,
+    damping: 28,
+    mass: 0.2,
   });
 
   const drawFrame = useCallback((index: number) => {
@@ -135,7 +135,7 @@ export default function ScrollyCanvas({ targetRef }: ScrollyCanvasProps) {
     imagesRef.current = images;
     handleResize();
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -160,6 +160,8 @@ export default function ScrollyCanvas({ targetRef }: ScrollyCanvasProps) {
         pointerEvents: "none",
         opacity: visible ? 1 : 0,
         transition: "opacity 0.5s ease",
+        willChange: "transform",
+        transform: "translate3d(0,0,0)",
       }}
     />
   );

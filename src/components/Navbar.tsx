@@ -13,40 +13,58 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Custom cursor */
+  /* Custom cursor — RAF-throttled so mouse tracking never competes with scroll */
   useEffect(() => {
     const cursor = cursorRef.current;
     if (!cursor) return;
-    let mx = 0, my = 0, cx = 0, cy = 0;
 
-    const move = (e: MouseEvent) => { mx = e.clientX; my = e.clientY; };
-    window.addEventListener("mousemove", move);
+    // Target position (updated on every mousemove)
+    let mx = 0, my = 0;
+    // Lerp-smoothed cursor position
+    let cx = 0, cy = 0;
+    // Flag: has a RAF tick been scheduled?
+    let rafScheduled = false;
 
-    let raf: number;
+    const onMove = (e: MouseEvent) => {
+      mx = e.clientX;
+      my = e.clientY;
+      // Only schedule one RAF at a time
+      if (!rafScheduled) {
+        rafScheduled = true;
+        requestAnimationFrame(tick);
+      }
+    };
+
     const tick = () => {
+      rafScheduled = false;
       cx += (mx - cx) * 0.12;
       cy += (my - cy) * 0.12;
       cursor.style.left = `${cx}px`;
       cursor.style.top = `${cy}px`;
-      raf = requestAnimationFrame(tick);
+      // Continue lerping until cursor reaches target
+      if (Math.abs(mx - cx) > 0.1 || Math.abs(my - cy) > 0.1) {
+        rafScheduled = true;
+        requestAnimationFrame(tick);
+      }
     };
-    raf = requestAnimationFrame(tick);
 
-    const hoverables = () => document.querySelectorAll("a, button, .project-row, .skill-pill, .contact-heading");
-    const addHover = () => {
-      hoverables().forEach((el) => {
-        el.addEventListener("mouseenter", () => cursor.classList.add("hovering"));
-        el.addEventListener("mouseleave", () => cursor.classList.remove("hovering"));
-      });
+    window.addEventListener("mousemove", onMove, { passive: true });
+
+    // Event delegation — single listener instead of attaching to every element
+    const SELECTORS = "a, button, .project-row, .skill-pill, .contact-heading";
+    const onEnter = (e: MouseEvent) => {
+      if ((e.target as Element).closest(SELECTORS)) cursor.classList.add("hovering");
     };
-    addHover();
-    const observer = new MutationObserver(addHover);
-    observer.observe(document.body, { childList: true, subtree: true });
+    const onLeave = (e: MouseEvent) => {
+      if ((e.target as Element).closest(SELECTORS)) cursor.classList.remove("hovering");
+    };
+    document.body.addEventListener("mouseover", onEnter, { passive: true });
+    document.body.addEventListener("mouseout", onLeave, { passive: true });
 
     return () => {
-      window.removeEventListener("mousemove", move);
-      cancelAnimationFrame(raf);
-      observer.disconnect();
+      window.removeEventListener("mousemove", onMove);
+      document.body.removeEventListener("mouseover", onEnter);
+      document.body.removeEventListener("mouseout", onLeave);
     };
   }, []);
 

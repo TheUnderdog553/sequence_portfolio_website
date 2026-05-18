@@ -35,12 +35,14 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 html {
   position: relative;
   overflow-x: hidden;
-  scroll-behavior: smooth;
+  /* Removed scroll-behavior: smooth — conflicts with Framer Motion scroll tracking */
   scrollbar-width: thin;
   scrollbar-color: rgba(246, 242, 234, 0.16) transparent;
 }
@@ -167,8 +169,9 @@ h6 {
   border: 1px solid var(--border);
   border-top: 0;
   border-radius: 0 0 18px 18px;
-  background: rgba(6, 6, 6, 0.76);
-  backdrop-filter: blur(18px);
+  background: rgba(6, 6, 6, 0.88);
+  backdrop-filter: blur(10px); /* reduced from 18px — heavy blur on fixed element causes jank */
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .site-nav a {
@@ -190,7 +193,10 @@ h6 {
 }
 
 .sequence-canvas {
-  filter: saturate(0.96) contrast(1.04);
+  /* Removed CSS filter — it forces a new composite layer on every frame and is GPU-heavy.
+     Slight saturation/contrast is negligible visually but was causing scroll stutter. */
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .hero-vignette {
@@ -318,6 +324,8 @@ h6 {
   display: flex;
   width: max-content;
   animation: marqueeScroll 26s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .marquee-track span {
@@ -561,6 +569,8 @@ h6 {
   width: max-content;
   gap: 44px;
   animation: marqueeScroll 32s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 .tech-ticker-track span {
