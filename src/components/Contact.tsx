@@ -75,11 +75,15 @@ export default function Contact() {
         <div className="contact-actions reveal" style={{ transitionDelay: "0.12s" }}>
           <button onClick={copyEmail} type="button" className="email-button">
             <span>{email}</span>
-            <small>{copied ? "Copied" : "Copy"}</small>
+            <small style={{ 
+              borderColor: copied ? "var(--accent)" : "var(--border)",
+              color: copied ? "var(--accent)" : "var(--text)",
+              backgroundColor: copied ? "rgba(215, 181, 109, 0.08)" : "transparent",
+              transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)"
+            }}>
+              {copied ? "✓ Copied" : "Copy"}
+            </small>
           </button>
-          <a href="tel:+919651909981" className="contact-phone">
-            +91 9651909981
-          </a>
         </div>
 
         <div className="contact-socials reveal" style={{ transitionDelay: "0.2s" }}>

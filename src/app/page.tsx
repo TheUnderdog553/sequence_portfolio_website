@@ -6,7 +6,6 @@ import About from "@/components/About";
 import WhatIDo from "@/components/WhatIDo";
 import Career from "@/components/Career";
 import Projects from "@/components/Projects";
-import Accomplishments from "@/components/Accomplishments";
 import Contact from "@/components/Contact";
 
 export default function Home() {
@@ -21,7 +20,6 @@ export default function Home() {
           <Career />
           <Projects />
           <div style={{ position: "relative", zIndex: 10, backgroundColor: "var(--bg)" }}>
-            <Accomplishments />
             <Contact />
           </div>
         </div>

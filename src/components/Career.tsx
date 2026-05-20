@@ -2,36 +2,39 @@
 
 import { useEffect, useRef } from "react";
 
-const history = [
+const professionalExp = [
   {
     role: "Cybersecurity Intern",
     company: "Teachnook",
     year: "Aug 2024 - Sep 2024",
-    desc: "Built a network traffic analysis tool with geolocation maps and protocol-based packet filtering.",
+    desc: "Built a network traffic analysis tool with geolocation mapping and protocol-based packet filtering.",
   },
   {
     role: "Frontend Web Dev Intern",
     company: "Raise Digital",
     year: "Aug 2023 - Sep 2023",
-    desc: "Collaborated with mentors to build three web projects and strengthen frontend delivery fundamentals.",
+    desc: "Collaborated with mentors to build responsive frontend interfaces and strengthen web delivery workflows.",
   },
+];
+
+const educationAndCredentials = [
   {
-    role: "B.Tech CSE, Cyber Security",
-    company: "SRM IST, Kattankulathur",
+    role: "B.Tech CSE (Cyber Security)",
+    company: "SRM Institute of Science and Technology",
     year: "2022 - 2026",
-    desc: "CGPA 9.76/10 with focus on network security, digital forensics, system exploitation, and cryptography.",
+    desc: "Pursuing engineering degree with a current CGPA of 9.76/10. Focus areas: network protocols, systems security, and cryptography.",
   },
   {
-    role: "Class XII, CBSE",
-    company: "Loyola International School, Lucknow",
-    year: "2021",
-    desc: "Completed senior secondary education with 87.2%.",
+    role: "Certified Ethical Hacker (CEH)",
+    company: "EC-Council",
+    year: "Issued Sep 2024",
+    desc: "Credential ID: ECC8296435012. Validated expertise in threat vectors, scanning, web app vulnerabilities, and penetration testing.",
   },
   {
-    role: "Class X, CBSE",
-    company: "Stella Maris Convent School, Sultanpur",
-    year: "2019",
-    desc: "Completed secondary education with 96.6%.",
+    role: "AWS Academy Graduate",
+    company: "AWS Academy Cloud Foundations",
+    year: "Issued Nov 2023",
+    desc: "Earned cloud foundations certification covering cloud architecture, compute services, and infrastructure security.",
   },
 ];
 
@@ -65,21 +68,40 @@ export default function Career() {
           A focused path through code and security.
         </h2>
 
-        <div style={{ maxWidth: 820 }}>
-          {history.map((item, index) => (
-            <div
-              key={`${item.role}-${item.year}`}
-              className="timeline-entry reveal"
-              style={{ transitionDelay: `${index * 0.08}s` }}
-            >
-              <div>
-                <h3 className="timeline-role">{item.role}</h3>
-                <p className="timeline-company">{item.company}</p>
-                <p className="timeline-desc">{item.desc}</p>
-              </div>
-              <span className="timeline-date">{item.year}</span>
+        <div className="career-grid reveal" style={{ transitionDelay: "0.15s" }}>
+          <div className="career-col">
+            <h3 className="career-col-title">Professional</h3>
+            <div className="timeline-list">
+              {professionalExp.map((item, index) => (
+                <div
+                  key={`${item.role}-${index}`}
+                  className="timeline-entry"
+                >
+                  <h4 className="timeline-role">{item.role}</h4>
+                  <p className="timeline-company">{item.company}</p>
+                  <p className="timeline-desc">{item.desc}</p>
+                  <span className="timeline-date">{item.year}</span>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
+
+          <div className="career-col">
+            <h3 className="career-col-title">Education & Credentials</h3>
+            <div className="timeline-list">
+              {educationAndCredentials.map((item, index) => (
+                <div
+                  key={`${item.role}-${index}`}
+                  className="timeline-entry"
+                >
+                  <h4 className="timeline-role">{item.role}</h4>
+                  <p className="timeline-company">{item.company}</p>
+                  <p className="timeline-desc">{item.desc}</p>
+                  <span className="timeline-date">{item.year}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

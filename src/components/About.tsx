@@ -2,34 +2,19 @@
 
 import { useEffect, useRef } from "react";
 
-const skills = [
-  "React",
-  "Next.js",
-  "Node.js",
-  "Python",
-  "Django",
-  "TypeScript",
-  "PostgreSQL",
-  "C++",
-  "Firebase",
-  "Tailwind CSS",
-  "AWS",
-  "Figma",
-];
-
-const techTicker = [
-  "React",
-  "Node.js",
-  "Python",
-  "Django",
-  "Cybersecurity",
-  "PostgreSQL",
-  "TypeScript",
-  "Firebase",
-  "AWS",
-  "Framer Motion",
-  "Next.js",
-  "Git",
+const skillCategories = [
+  {
+    title: "Development",
+    subtitle: "Building highly interactive frontend interfaces and solid, scalable backends.",
+    skills: ["React", "Next.js", "Django", "TypeScript", "PostgreSQL", "C++"],
+    bgClass: "bento-bg-code",
+  },
+  {
+    title: "Security & Infra",
+    subtitle: "Designing secure network environments and automating defense mechanisms.",
+    skills: ["AWS", "Git", "Wazuh", "Pentesting Tools"],
+    bgClass: "bento-bg-sec",
+  },
 ];
 
 export default function About() {
@@ -99,21 +84,28 @@ export default function About() {
           </div>
         </div>
 
-        <div className="reveal" style={{ marginTop: 64, transitionDelay: "0.2s" }}>
-          <h3 className="subheading">Skillset and tools</h3>
-          <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            {skills.map((skill) => (
-              <span key={skill} className="skill-pill">
-                {skill}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        <div className="tech-ticker-wrap reveal" style={{ transitionDelay: "0.28s" }}>
-          <div className="tech-ticker-track">
-            {[...techTicker, ...techTicker].map((item, index) => (
-              <span key={`${item}-${index}`}>{item}</span>
+        <div className="reveal" style={{ marginTop: 80, transitionDelay: "0.2s" }}>
+          <h3 className="subheading" style={{ marginBottom: 28 }}>Skillset & Domains</h3>
+          <div className="skills-bento">
+            {skillCategories.map((cat, index) => (
+              <div
+                key={cat.title}
+                className="bento-card"
+                style={{ transitionDelay: `${index * 0.1}s` }}
+              >
+                <div className={`bento-bg-decoration ${cat.bgClass}`} />
+                <div className="bento-header">
+                  <h4 className="bento-title">{cat.title}</h4>
+                  <p className="bento-subtitle">{cat.subtitle}</p>
+                </div>
+                <div className="bento-skills">
+                  {cat.skills.map((skill) => (
+                    <span key={skill} className="bento-skill-pill">
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>

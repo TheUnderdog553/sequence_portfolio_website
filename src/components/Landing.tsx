@@ -59,17 +59,29 @@ export default function Landing() {
           </div>
         </div>
 
-        <div className="hero-meta" aria-hidden="true">
-          <span>B.Tech Cyber Security</span>
-          <span>SRM IST</span>
-          <span>CGPA 9.76</span>
-        </div>
 
-        <div className="marquee-wrap">
-          <div className="marquee-track">
-            {Array.from({ length: 8 }).map((_, index) => (
-              <span key={index}>{marqueeText}</span>
-            ))}
+
+        <div className="hero-highlights">
+          <div className="highlight-card">
+            <div className="highlight-tag">Cybersecurity</div>
+            <h3 className="highlight-val">CEH Certified</h3>
+            <p className="highlight-desc">
+              EC-Council Certified Ethical Hacker specializing in secure architecture & pentesting.
+            </p>
+          </div>
+          <div className="highlight-card">
+            <div className="highlight-tag">Academics</div>
+            <h3 className="highlight-val">9.76 CGPA</h3>
+            <p className="highlight-desc">
+              Pursuing B.Tech CSE (Cyber Security) at SRM IST, building secure systems.
+            </p>
+          </div>
+          <div className="highlight-card">
+            <div className="highlight-tag">Engineering</div>
+            <h3 className="highlight-val">Full-Stack</h3>
+            <p className="highlight-desc">
+              Developing performant backends and interactive web apps with robust design.
+            </p>
           </div>
         </div>
       </div>
