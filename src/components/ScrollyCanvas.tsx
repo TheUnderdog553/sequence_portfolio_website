@@ -28,9 +28,9 @@ export default function ScrollyCanvas({ targetRef }: ScrollyCanvasProps) {
   });
 
   const easedProgress = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 28,
-    mass: 0.2,
+    stiffness: 60,
+    damping: 26,
+    mass: 0.3,
   });
 
   const drawFrame = useCallback((index: number) => {
@@ -124,10 +124,25 @@ export default function ScrollyCanvas({ targetRef }: ScrollyCanvasProps) {
       img.decoding = "async";
       img.src = getFramePath(i);
       img.onload = () => {
-        if (i === 0) {
-          handleResize();
-          drawFrame(0);
-        }
+        img.decode()
+          .then(() => {
+            if (i === 0) {
+              handleResize();
+              drawFrame(0);
+            }
+            if (i === currentFrameRef.current) {
+              drawFrame(i);
+            }
+          })
+          .catch(() => {
+            if (i === 0) {
+              handleResize();
+              drawFrame(0);
+            }
+            if (i === currentFrameRef.current) {
+              drawFrame(i);
+            }
+          });
       };
       images.push(img);
     }
