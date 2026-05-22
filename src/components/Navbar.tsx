@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const cursorRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -12,6 +13,18 @@ export default function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
   /* Custom cursor — RAF-throttled so mouse tracking never competes with scroll */
   useEffect(() => {
@@ -72,7 +85,7 @@ export default function Navbar() {
     <>
       <div ref={cursorRef} className="custom-cursor" />
       <div className="nav-fade" />
-      <nav className={`site-nav ${scrolled ? "scrolled" : ""}`}>
+      <nav className={`site-nav ${scrolled ? "scrolled" : ""} ${mobileMenuOpen ? "menu-open" : ""}`}>
         <Link
           href="/"
           style={{
@@ -81,6 +94,7 @@ export default function Navbar() {
             fontSize: "18px",
             letterSpacing: "0.04em",
           }}
+          onClick={() => setMobileMenuOpen(false)}
         >
           Priyanshu Singh
         </Link>
@@ -102,6 +116,7 @@ export default function Navbar() {
           spriyanshu553@gmail.com
         </a>
 
+        {/* Desktop Menu */}
         <ul
           style={{
             display: "flex",
@@ -130,6 +145,49 @@ export default function Navbar() {
             </a>
           </li>
         </ul>
+
+        {/* Mobile Hamburger Button */}
+        <button
+          className={`mobile-menu-toggle ${mobileMenuOpen ? "open" : ""}`}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span className="hamburger-line line-1"></span>
+          <span className="hamburger-line line-2"></span>
+          <span className="hamburger-line line-3"></span>
+        </button>
+
+        {/* Mobile Glassmorphic Drawer Overlay */}
+        <div className={`mobile-menu-overlay ${mobileMenuOpen ? "open" : ""}`}>
+          <ul className="mobile-menu-links">
+            <li>
+              <a href="#about" onClick={() => setMobileMenuOpen(false)}>
+                About
+              </a>
+            </li>
+            <li>
+              <a href="#work" onClick={() => setMobileMenuOpen(false)}>
+                Work
+              </a>
+            </li>
+            <li>
+              <a href="#contact" onClick={() => setMobileMenuOpen(false)}>
+                Contact
+              </a>
+            </li>
+            <li>
+              <a
+                href="/Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cta-primary mobile-resume-btn"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Resume
+              </a>
+            </li>
+          </ul>
+        </div>
       </nav>
     </>
   );

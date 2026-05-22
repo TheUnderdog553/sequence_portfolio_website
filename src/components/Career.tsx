@@ -58,7 +58,7 @@ export default function Career() {
   }, []);
 
   return (
-    <section ref={ref} className="career-section" style={{ padding: "116px 0" }}>
+    <section ref={ref} className="career-section">
       <div className="section-container">
         <div className="reveal" style={{ marginBottom: 18 }}>
           <span className="section-label">Experience and Education</span>

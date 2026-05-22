@@ -26,6 +26,7 @@ const projects = [
     desc: "Forensic evidence management system with role-based access, blockchain audit trails, and ransomware tracking.",
     tools: ["React", "Firebase", "Framer Motion", "Node.js"],
     gradient: "linear-gradient(135deg, #2d1b69 0%, #11998e 60%, #1a1a2e 100%)",
+    link: "https://frontend-sooty-seven-h7ty5rlj41.vercel.app",
   },
 ];
 
@@ -190,30 +191,101 @@ export default function Projects() {
               <span className="dot yellow"></span>
               <span className="dot green"></span>
             </div>
-            <span className="window-title">ledger_audit_v2</span>
+            <span className="window-title">BlockTrace Command Center</span>
           </div>
-          <div className="window-body dashboard-theme">
-            <div className="dashboard-grid">
-              <div className="db-card">
-                <span className="db-label">Integrity</span>
-                <span className="db-value">100%</span>
+          <div className="window-body blocktrace-dashboard-layout">
+            {/* Sidebar */}
+            <aside className="mini-sidebar">
+              <div className="mini-sidebar-logo">
+                <span className="logo-dot"></span>
               </div>
-              <div className="db-card">
-                <span className="db-label">Alerts</span>
-                <span className="db-value danger-text">02</span>
+              <nav className="mini-sidebar-nav">
+                <span className="nav-icon active"></span>
+                <span className="nav-icon"></span>
+                <span className="nav-icon"></span>
+                <span className="nav-icon"></span>
+                <span className="nav-icon"></span>
+              </nav>
+              <div className="mini-sidebar-stats">
+                <span className="stat-line"></span>
+                <span className="stat-line"></span>
               </div>
-            </div>
-            <div className="blockchain-visual">
-              <div className="block active">
-                <span className="block-hash">#a7f1</span>
-                <span className="block-status">Ok</span>
+            </aside>
+
+            {/* Dashboard Content */}
+            <main className="mini-main">
+              <header className="mini-main-header">
+                <div>
+                  <h4 className="mini-main-title">Evidence Command Center</h4>
+                  <p className="mini-main-desc">Channel: evidence-channel</p>
+                </div>
+                <span className="mini-live-badge">
+                  <span className="pulse-dot"></span> Ledger Live
+                </span>
+              </header>
+
+              <div className="mini-metrics-grid">
+                <div className="mini-metric-card border-neon">
+                  <span className="metric-label">Entries</span>
+                  <span className="metric-val text-neon">28</span>
+                  <div className="mini-sparkline spark-neon"></div>
+                </div>
+                <div className="mini-metric-card border-success">
+                  <span className="metric-label">Integrity</span>
+                  <span className="metric-val text-success">100%</span>
+                  <div className="mini-sparkline spark-success"></div>
+                </div>
+                <div className="mini-metric-card border-warning">
+                  <span className="metric-label">Pending</span>
+                  <span className="metric-val text-warning">02</span>
+                  <div className="mini-sparkline spark-warning"></div>
+                </div>
+                <div className="mini-metric-card border-accent">
+                  <span className="metric-label">Cases</span>
+                  <span className="metric-val text-accent">04</span>
+                  <div className="mini-sparkline spark-accent"></div>
+                </div>
               </div>
-              <span className="block-connector"></span>
-              <div className="block alert">
-                <span className="block-hash">#9b2c</span>
-                <span className="block-status">Crit</span>
+
+              <div className="mini-dashboard-split">
+                <div className="mini-chart-card">
+                  <span className="split-card-label">Evidence Intake</span>
+                  <div className="mini-chart-visual">
+                    <svg viewBox="0 0 100 30" className="chart-svg">
+                      <defs>
+                        <linearGradient id="chartGlowNeon" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#00F0FF" stopOpacity={0.4} />
+                          <stop offset="95%" stopColor="#00F0FF" stopOpacity={0.0} />
+                        </linearGradient>
+                        <linearGradient id="chartGlowSuccess" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="5%" stopColor="#10B981" stopOpacity={0.3} />
+                          <stop offset="95%" stopColor="#10B981" stopOpacity={0.0} />
+                        </linearGradient>
+                      </defs>
+                      <path d="M0,25 Q15,10 30,18 T60,5 T90,12 T100,8 L100,30 L0,30 Z" className="chart-area-neon" />
+                      <path d="M0,25 Q15,10 30,18 T60,5 T90,12 T100,8" className="chart-line-neon" />
+                      <path d="M0,28 Q15,18 30,22 T60,12 T90,18 T100,15 L100,30 L0,30 Z" className="chart-area-success" />
+                      <path d="M0,28 Q15,18 30,22 T60,12 T90,18 T100,15" className="chart-line-success" />
+                    </svg>
+                  </div>
+                </div>
+
+                <div className="mini-network-card">
+                  <span className="split-card-label">Fabric Nodes</span>
+                  <div className="mini-nodes-row">
+                    <div className="mini-node online">
+                      <span className="node-dot-pulse"></span>Forensics
+                    </div>
+                    <div className="mini-node online">
+                      <span className="node-dot-pulse"></span>Police
+                    </div>
+                    <div className="mini-node online">
+                      <span className="node-dot-pulse"></span>Court
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
+            </main>
           </div>
         </div>
       );
@@ -262,20 +334,50 @@ export default function Projects() {
             style={{ transitionDelay: `${index * 0.1}s` }}
           >
             {/* Gradient Thumbnail with UI Mockup */}
-            <div
-              className="project-card-thumb"
-              style={{ background: project.gradient }}
-            >
-              <div className="mockup-wrapper">
-                {renderMockup(project.num)}
+            {project.link ? (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-card-thumb"
+                style={{ background: project.gradient, display: "flex" }}
+              >
+                <div className="mockup-wrapper">
+                  {renderMockup(project.num)}
+                </div>
+                <span className="project-card-cat">{project.cat}</span>
+                <span className="project-card-num">{project.num}</span>
+                <span className="project-card-live-badge">Live Demo ↗</span>
+              </a>
+            ) : (
+              <div
+                className="project-card-thumb"
+                style={{ background: project.gradient }}
+              >
+                <div className="mockup-wrapper">
+                  {renderMockup(project.num)}
+                </div>
+                <span className="project-card-cat">{project.cat}</span>
+                <span className="project-card-num">{project.num}</span>
               </div>
-              <span className="project-card-cat">{project.cat}</span>
-              <span className="project-card-num">{project.num}</span>
-            </div>
+            )}
 
             {/* Card Info */}
             <div className="project-card-info">
-              <h3 className="project-card-title">{project.title}</h3>
+              <h3 className="project-card-title">
+                {project.link ? (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-card-link-title"
+                  >
+                    {project.title} <span className="title-arrow">↗</span>
+                  </a>
+                ) : (
+                  project.title
+                )}
+              </h3>
               <p className="project-card-desc">{project.desc}</p>
               <div className="project-card-tools">
                 {project.tools.map((tool) => (

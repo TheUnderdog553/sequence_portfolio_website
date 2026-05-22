@@ -21,6 +21,11 @@ export default function ScrollyCanvas({ targetRef }: ScrollyCanvasProps) {
   const currentFrameRef = useRef(0);
   const rafIdRef = useRef<number | null>(null);
   const [visible, setVisible] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -98,6 +103,8 @@ export default function ScrollyCanvas({ targetRef }: ScrollyCanvasProps) {
   }, [targetRef]);
 
   useMotionValueEvent(easedProgress, "change", (value) => {
+    if (isMobile) return;
+
     const frameIdx = Math.min(
       Math.max(Math.round(value * LAST_FRAME_INDEX), 0),
       LAST_FRAME_INDEX
@@ -117,9 +124,13 @@ export default function ScrollyCanvas({ targetRef }: ScrollyCanvasProps) {
   });
 
   useEffect(() => {
+    const isMobileViewport = window.innerWidth < 768;
     const images: HTMLImageElement[] = [];
 
-    for (let i = 0; i < TOTAL_FRAMES; i += 1) {
+    // On mobile, only load the first frame (saving ~50MB data download)
+    const framesToLoad = isMobileViewport ? 1 : TOTAL_FRAMES;
+
+    for (let i = 0; i < framesToLoad; i += 1) {
       const img = new Image();
       img.decoding = "async";
       img.src = getFramePath(i);
@@ -130,7 +141,7 @@ export default function ScrollyCanvas({ targetRef }: ScrollyCanvasProps) {
               handleResize();
               drawFrame(0);
             }
-            if (i === currentFrameRef.current) {
+            if (!isMobileViewport && i === currentFrameRef.current) {
               drawFrame(i);
             }
           })
@@ -139,7 +150,7 @@ export default function ScrollyCanvas({ targetRef }: ScrollyCanvasProps) {
               handleResize();
               drawFrame(0);
             }
-            if (i === currentFrameRef.current) {
+            if (!isMobileViewport && i === currentFrameRef.current) {
               drawFrame(i);
             }
           });

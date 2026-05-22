@@ -37,7 +37,7 @@ export default function About() {
   }, []);
 
   return (
-    <section id="about" ref={sectionRef} style={{ padding: "132px 0 84px" }}>
+    <section id="about" ref={sectionRef} className="about-section">
       <div className="section-container">
         <div className="reveal" style={{ marginBottom: 18 }}>
           <span className="section-label">About</span>

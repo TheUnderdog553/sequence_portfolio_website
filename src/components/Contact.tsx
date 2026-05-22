@@ -57,7 +57,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" ref={sectionRef} style={{ padding: "128px 0 56px" }}>
+    <section id="contact" ref={sectionRef} className="contact-section">
       <div className="section-container">
         <div className="reveal" style={{ marginBottom: 18 }}>
           <span className="section-label">Contact</span>
