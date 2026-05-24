@@ -18,6 +18,7 @@ const projects = [
     desc: "End-to-end ride-booking platform with real-time tracking, payments, and driver dashboards.",
     tools: ["Python", "Django", "Firebase", "Razorpay"],
     gradient: "linear-gradient(135deg, #0d1b2a 0%, #1b4332 50%, #081c15 100%)",
+    link: "https://indiaride-ui.vercel.app",
   },
   {
     num: "03",
