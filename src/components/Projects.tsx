@@ -154,32 +154,17 @@ export default function Projects() {
       );
     } else if (num === "02") {
       return (
-        <div className="mini-window">
+        <div className="mini-window" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
           <div className="window-header">
             <div className="window-dots">
               <span className="dot red"></span>
               <span className="dot yellow"></span>
               <span className="dot green"></span>
             </div>
-            <span className="window-title">dispatch_map_live</span>
+            <span className="window-title">indiaride-ui.vercel.app</span>
           </div>
-          <div className="window-body map-theme">
-            <div className="map-grid"></div>
-            <div className="map-route-line">
-              <span className="car-marker"></span>
-            </div>
-            <div className="pin pin-start"></div>
-            <div className="pin pin-end"></div>
-            <div className="map-overlay-card">
-              <div className="driver-info">
-                <span className="avatar-placeholder">🚗</span>
-                <div>
-                  <span className="driver-name">Rajesh K.</span>
-                  <span className="driver-rating">★ 4.9</span>
-                </div>
-              </div>
-              <span className="trip-status pulsing">On Route</span>
-            </div>
+          <div className="window-body" style={{ padding: 0, overflow: 'hidden', display: 'flex', flexGrow: 1 }}>
+            <img src="/project-indiaride.png" alt="IndiaRide Preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
         </div>
       );
