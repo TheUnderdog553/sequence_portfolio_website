@@ -10,6 +10,7 @@ const projects = [
     desc: "AI-powered desktop tool that monitors files in real-time and flags sensitive data leakage.",
     tools: ["PySide6", "Gemini AI", "Watchdog", "FPDF"],
     gradient: "linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%)",
+    link: "https://sentina-gaurd-main.vercel.app/",
   },
   {
     num: "02",
